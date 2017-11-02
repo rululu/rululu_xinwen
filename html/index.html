@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#con p{ width: 600px; line-height: 30px;}
+			#con p span{ float: right;}
+		</style>
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<button value="0">行业新闻</button>
+		<button value="1">企业新闻</button>
+		<div id="con">
+			
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	$(function(){
+		$("button").click(function(){
+			var num=$(this).val();
+			console.log(num)
+			$.ajax({
+				url:"http://localhost:3000/item/detail",
+				type:"get",
+				dataType:"json",
+				success:function(e){
+					console.log(e)
+					var str="";
+					for(var i in e){
+						if(e[i].se==num){
+							str+="<p>"+e[i].head+"<span>"+e[i].shijian+"</span>"+"</p>"
+						}
+					}
+					$("#con").html(str)
+				}
+			})
+		})
+		
+	})
+</script>
